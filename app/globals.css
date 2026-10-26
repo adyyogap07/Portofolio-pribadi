@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  --background: #FFFFFF;
+  --surface: #F5F7FB;
+  --border: #E3E7F0;
+  --foreground: #0F172A;
+  --muted: #64748B;
+  --primary: #2563EB;
+  --accent: #06B6D4;
+  --success: #16A34A;
+  --danger: #DC2626;
+}
+
+.dark {
+  --background: #0B1020;
+  --surface: #121933;
+  --border: #222B4A;
+  --foreground: #E6EAF5;
+  --muted: #94A3C0;
+  --primary: #3B82F6;
+  --accent: #22D3EE;
+  --success: #22C55E;
+  --danger: #EF4444;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
