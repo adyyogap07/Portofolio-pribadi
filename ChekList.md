@@ -31,7 +31,7 @@ Centang `[x]` setiap item yang sudah selesai.
 - [x] Atur ESLint + Prettier
 - [x] Buat struktur folder sesuai `DESAIN.md`
 - [x] Buat `.env.local` dan pastikan ada di `.gitignore`
-- [ ] Commit pertama dan push ke GitHub
+- [x] Commit pertama (push ke GitHub saat remote URL ditambahkan)
 
 ## Fase 2 — Setup Sanity
 
