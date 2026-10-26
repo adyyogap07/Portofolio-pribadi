@@ -101,18 +101,36 @@ export function Hero() {
           {/* Hero Image */}
           <div className="flex justify-center lg:col-span-5 lg:justify-end">
             <Reveal delay={0.2}>
-              <div className="relative">
-                {/* Glow ring */}
-                <div className="absolute -inset-2 rounded-full bg-gradient-to-tr from-primary to-accent opacity-30 blur-md transition duration-500 hover:opacity-50" />
-                <div className="relative h-64 w-64 overflow-hidden rounded-full border-4 border-background shadow-2xl sm:h-80 sm:w-80">
+              <div className="relative group">
+                {/* Decorative ambient gradient backdrop */}
+                <div
+                  aria-hidden="true"
+                  className="absolute -inset-2 rounded-2xl bg-gradient-to-tr from-primary to-accent opacity-30 blur-lg transition duration-500 group-hover:opacity-50"
+                />
+
+                {/* Rectangular photo frame */}
+                <div className="relative aspect-[3/4] w-64 sm:w-72 md:w-80 overflow-hidden rounded-2xl border-4 border-background bg-surface shadow-2xl transition-transform duration-300 group-hover:scale-[1.01]">
                   <Image
                     src="/images/profile.jpg"
                     alt="Foto profil Ady Yoga Pratama"
-                    width={320}
-                    height={320}
+                    fill
                     priority
-                    className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+                    sizes="(max-width: 640px) 256px, (max-width: 768px) 288px, 320px"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                   />
+                  {/* Subtle inner border */}
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-black/10 dark:ring-white/10" />
+                </div>
+
+                {/* Floating status badge */}
+                <div className="absolute -bottom-3 -right-3 flex items-center gap-2 rounded-xl border border-border/80 bg-background/95 px-3 py-1.5 shadow-lg backdrop-blur-md">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
+                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-success" />
+                  </span>
+                  <span className="text-xs font-semibold text-foreground">
+                    Available for Work
+                  </span>
                 </div>
               </div>
             </Reveal>
