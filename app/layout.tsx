@@ -16,27 +16,27 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Moh. Hasan Efendi | IT Developer & Software Engineer",
+  title: "Ady Yoga Pratama | IT Developer & Software Engineer",
   description:
-    "Website portofolio profesional Moh. Hasan Efendi - IT Developer & Software Engineer. Menampilkan keahlian, proyek unggulan, dan riwayat pengalaman.",
+    "Website portofolio profesional Ady Yoga Pratama - IT Developer & Software Engineer. Menampilkan keahlian, proyek unggulan, dan riwayat pengalaman.",
   keywords: [
-    "Moh. Hasan Efendi",
-    "Hasan Efendi",
+    "Ady Yoga Pratama",
+    "Ady Yoga",
     "IT Developer",
     "Software Engineer",
     "Portofolio",
     "Fullstack Developer",
   ],
-  authors: [{ name: "Moh. Hasan Efendi" }],
-  creator: "Moh. Hasan Efendi",
+  authors: [{ name: "Ady Yoga Pratama" }],
+  creator: "Ady Yoga Pratama",
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://hasanefendi-portfolio-cv.web.app/",
-    title: "Moh. Hasan Efendi | IT Developer & Software Engineer",
+    url: "https://adyyoga.dev/",
+    title: "Ady Yoga Pratama | IT Developer & Software Engineer",
     description:
-      "Website portofolio profesional Moh. Hasan Efendi - IT Developer & Software Engineer.",
-    siteName: "Portofolio Moh. Hasan Efendi",
+      "Website portofolio profesional Ady Yoga Pratama - IT Developer & Software Engineer.",
+    siteName: "Portofolio Ady Yoga Pratama",
   },
 };
 

@@ -1,4 +1,4 @@
-# CHECKLIST — Web Portofolio Moh. Hasan Efendi
+# CHECKLIST — Web Portofolio Ady Yoga Pratama
 
 **Stack:** Next.js + Tailwind CSS + Sanity
 Centang `[x]` setiap item yang sudah selesai.

@@ -1,4 +1,4 @@
-# DESAIN — Web Portofolio Moh. Hasan Efendi
+# DESAIN — Web Portofolio Ady Yoga Pratama
 
 Dokumen ini berisi arah desain visual, struktur halaman, arsitektur teknis, dan skema konten Sanity.
 

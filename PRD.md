@@ -1,9 +1,9 @@
-# PRD — Web Portofolio Moh. Hasan Efendi
+# PRD — Web Portofolio Ady Yoga Pratama
 
 **Versi:** 1.1 (backend diganti dari Supabase ke Sanity)
 **Tanggal:** 26 Oktober 2026
-**Pemilik:** Moh. Hasan Efendi (IT Developer & Software Engineer)
-**Referensi:** https://hasanefendi-portfolio-cv.web.app/
+**Pemilik:** Ady Yoga Pratama (IT Developer & Software Engineer)
+**Referensi:** https://adyyoga.dev/
 
 > Catatan: isi halaman referensi tidak bisa dibaca penuh (dirender via JavaScript). Dokumen ini disusun dari metadata situs dan praktik umum portofolio developer. Sesuaikan bagian "Fitur" setelah membandingkan dengan situs referensi.
 

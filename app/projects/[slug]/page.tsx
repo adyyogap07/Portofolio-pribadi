@@ -92,7 +92,7 @@ export async function generateMetadata({ params }: ProjectDetailProps) {
   }
 
   return {
-    title: `${project.title} | Portofolio Moh. Hasan Efendi`,
+    title: `${project.title} | Portofolio Ady Yoga Pratama`,
     description: project.summary,
   };
 }

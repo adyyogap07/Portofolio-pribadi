@@ -92,7 +92,7 @@ export function Contact() {
                       Email
                     </span>
                     <p className="text-sm font-medium text-foreground">
-                      contact@hasanefendi.dev
+                      contact@adyyoga.dev
                     </p>
                   </div>
                 </div>

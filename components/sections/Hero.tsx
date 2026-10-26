@@ -35,7 +35,7 @@ export function Hero() {
               <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl">
                 Halo, saya{" "}
                 <span className="bg-gradient-to-r from-primary via-blue-600 to-accent bg-clip-text text-transparent">
-                  Moh. Hasan Efendi
+                  Ady Yoga Pratama
                 </span>
               </h1>
             </Reveal>
@@ -88,7 +88,7 @@ export function Hero() {
                   <span>LinkedIn</span>
                 </a>
                 <a
-                  href="mailto:contact@hasanefendi.dev"
+                  href="mailto:contact@adyyoga.dev"
                   className="flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-foreground"
                 >
                   <Mail className="h-4 w-4" />
@@ -107,7 +107,7 @@ export function Hero() {
                 <div className="relative h-64 w-64 overflow-hidden rounded-full border-4 border-background shadow-2xl sm:h-80 sm:w-80">
                   <Image
                     src="/images/profile.jpg"
-                    alt="Foto profil Moh. Hasan Efendi"
+                    alt="Foto profil Ady Yoga Pratama"
                     width={320}
                     height={320}
                     priority

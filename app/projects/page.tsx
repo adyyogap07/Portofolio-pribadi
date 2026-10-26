@@ -44,8 +44,8 @@ const ALL_PROJECTS = [
 ];
 
 export const metadata = {
-  title: "Semua Proyek | Moh. Hasan Efendi",
-  description: "Daftar lengkap proyek dan portofolio pengembangan web Moh. Hasan Efendi.",
+  title: "Semua Proyek | Ady Yoga Pratama",
+  description: "Daftar lengkap proyek dan portofolio pengembangan web Ady Yoga Pratama.",
 };
 
 export default function ProjectsPage() {

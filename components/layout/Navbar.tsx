@@ -41,10 +41,10 @@ export function Navbar() {
           className="group flex items-center gap-2 font-bold tracking-tight text-foreground"
         >
           <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-primary to-accent text-sm font-black text-white shadow-sm transition-transform duration-150 group-hover:scale-105">
-            HE
+            AY
           </span>
           <span className="hidden text-sm sm:inline-block font-semibold">
-            Hasan Efendi
+            Ady Yoga Pratama
           </span>
         </Link>
 
@@ -70,7 +70,7 @@ export function Navbar() {
             className="hidden sm:inline-flex"
             asChild
           >
-            <a href="#kontak" download aria-label="Unduh CV Moh. Hasan Efendi">
+            <a href="#kontak" download aria-label="Unduh CV Ady Yoga Pratama">
               <FileDown className="h-4 w-4" />
               <span>Unduh CV</span>
             </a>

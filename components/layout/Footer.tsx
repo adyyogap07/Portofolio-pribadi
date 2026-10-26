@@ -17,10 +17,10 @@ export function Footer() {
         <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
           <div className="flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-xs font-bold text-white">
-              HE
+              AY
             </span>
             <span className="text-sm font-semibold text-foreground">
-              Moh. Hasan Efendi
+              Ady Yoga Pratama
             </span>
           </div>
 
@@ -48,7 +48,7 @@ export function Footer() {
               <LinkedinIcon className="h-4 w-4" />
             </a>
             <a
-              href="mailto:contact@hasanefendi.dev"
+              href="mailto:contact@adyyoga.dev"
               className="transition-colors hover:text-foreground"
               aria-label="Kirim Email"
             >
