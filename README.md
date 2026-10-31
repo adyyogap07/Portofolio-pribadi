@@ -20,6 +20,24 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Sanity CMS
+
+Set `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` in `.env.local`
+or `.env`, then restart the development server. The dataset must be publicly readable.
+The dataset defaults to `production` when `NEXT_PUBLIC_SANITY_DATASET` is omitted.
+Allow `http://localhost:3000` in the project's Sanity CORS origins so Studio can sign in.
+Add the deployed website origin to CORS before using Studio in production.
+
+Open [http://localhost:3000/studio](http://localhost:3000/studio) and publish documents
+for Profil, Proyek, Skill, and Pengalaman & Pendidikan. The homepage reads the profile,
+featured projects, skills, and experience; `/projects` lists all published projects,
+and project detail pages use their Sanity slug. Only projects marked as featured appear
+in the homepage project section.
+
+The frontend displays published Sanity content only. Empty profile fields and content
+collections stay empty in the frontend; there is no sample-content fallback. Sanity
+content is cached for up to 15 minutes.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

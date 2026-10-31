@@ -39,21 +39,21 @@ Centang `[x]` setiap item yang sudah selesai.
 - [ ] Buat project Sanity (dashboard atau `npx sanity@latest init`) dan catat Project ID
 - [ ] Buat dataset `production`
 - [ ] Isi env: `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_API_VERSION`
-- [ ] Buat `sanity.config.ts` dan `sanity.cli.ts`
-- [ ] Buat folder `sanity/` (env, structure, schemaTypes, lib)
-- [ ] Buat skema `profile` (singleton)
-- [ ] Buat skema `project`
-- [ ] Buat skema `skill`
-- [ ] Buat skema `experience`
-- [ ] Daftarkan semua skema di `schemaTypes/index.ts`
-- [ ] Buat route Studio `app/studio/[[...tool]]/page.tsx`
+- [x] Buat `sanity.config.ts` dan `sanity.cli.ts`
+- [x] Buat folder `sanity/` (env, structure, schemaTypes, lib)
+- [x] Buat skema `profile` (singleton)
+- [x] Buat skema `project`
+- [x] Buat skema `skill`
+- [x] Buat skema `experience`
+- [x] Daftarkan semua skema di `schemaTypes/index.ts`
+- [x] Buat route Studio `app/studio/[[...tool]]/page.tsx`
 - [ ] Tambah `http://localhost:3000` ke CORS origins (aktifkan credentials) di dashboard Sanity
 - [ ] Buka `/studio` dan pastikan bisa login
-- [ ] Buat client `sanity/lib/client.ts`
-- [ ] Buat helper gambar `sanity/lib/image.ts`
-- [ ] Tulis query GROQ di `sanity/lib/queries.ts`
+- [x] Buat client `sanity/lib/client.ts`
+- [x] Buat helper gambar `sanity/lib/image.ts`
+- [x] Tulis query GROQ di `sanity/lib/queries.ts`
 - [ ] (Opsional) Jalankan `sanity typegen` untuk tipe otomatis
-- [ ] Tambah `cdn.sanity.io` ke `images.remotePatterns` di `next.config`
+- [x] Tambah `cdn.sanity.io` ke `images.remotePatterns` di `next.config`
 
 ## Fase 3 — Isi Konten di Studio
 

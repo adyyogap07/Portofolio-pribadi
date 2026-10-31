@@ -1,70 +1,30 @@
 import React from "react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
-
-interface SkillItem {
-  name: string;
-}
+import type { SanitySkill } from "@/sanity/lib/data";
 
 interface SkillCategoryGroup {
   category: string;
-  skills: SkillItem[];
+  skills: SanitySkill[];
 }
 
-const DEFAULT_SKILL_GROUPS: SkillCategoryGroup[] = [
-  {
-    category: "Frontend",
-    skills: [
-      { name: "Next.js" },
-      { name: "React" },
-      { name: "TypeScript" },
-      { name: "Tailwind CSS" },
-      { name: "HTML5/CSS3" },
-      { name: "Framer Motion" },
-    ],
-  },
-  {
-    category: "Backend",
-    skills: [
-      { name: "Node.js" },
-      { name: "Express" },
-      { name: "RESTful API" },
-      { name: "Sanity CMS" },
-      { name: "Authentication" },
-    ],
-  },
-  {
-    category: "Database",
-    skills: [
-      { name: "PostgreSQL" },
-      { name: "MySQL" },
-      { name: "MongoDB" },
-      { name: "Prisma ORM" },
-    ],
-  },
-  {
-    category: "DevOps & Infrastruktur",
-    skills: [
-      { name: "Linux" },
-      { name: "Docker" },
-      { name: "Git & GitHub" },
-      { name: "Vercel / Cloudflare" },
-      { name: "Networking" },
-    ],
-  },
-  {
-    category: "Tools & Workflow",
-    skills: [
-      { name: "VS Code" },
-      { name: "Postman" },
-      { name: "Figma" },
-      { name: "ESLint / Prettier" },
-      { name: "CI/CD" },
-    ],
-  },
-];
+export function Skills({ skills }: { skills?: SanitySkill[] }) {
+  if (!skills?.length) return null;
 
-export function Skills() {
+  const categories = [
+    ["frontend", "Frontend"],
+    ["backend", "Backend"],
+    ["database", "Database"],
+    ["devops", "DevOps & Infrastruktur"],
+    ["tools", "Tools & Workflow"],
+  ] as const;
+  const skillGroups: SkillCategoryGroup[] = categories
+    .map(([key, category]) => ({
+      category,
+      skills: skills.filter((skill) => skill.category === key),
+    }))
+    .filter((group) => group.skills.length > 0);
+
   return (
     <section id="skill" className="py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -75,14 +35,14 @@ export function Skills() {
         />
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {DEFAULT_SKILL_GROUPS.map((group, groupIdx) => (
+          {skillGroups.map((group, groupIdx) => (
             <Reveal key={group.category} delay={groupIdx * 0.1}>
-              <div className="h-full rounded-2xl border border-border/80 bg-surface/50 p-6 transition duration-200 hover:border-primary/50 hover:bg-surface">
-                <div className="flex items-center justify-between border-b border-border/60 pb-3 mb-4">
-                  <h3 className="font-bold text-foreground text-base">
+              <div className="border-border/80 bg-surface/50 hover:border-primary/50 hover:bg-surface h-full rounded-2xl border p-6 transition duration-200">
+                <div className="border-border/60 mb-4 flex items-center justify-between border-b pb-3">
+                  <h3 className="text-foreground text-base font-bold">
                     {group.category}
                   </h3>
-                  <span className="text-xs text-muted">
+                  <span className="text-muted text-xs">
                     {group.skills.length} keahlian
                   </span>
                 </div>
@@ -91,7 +51,7 @@ export function Skills() {
                   {group.skills.map((skill) => (
                     <span
                       key={skill.name}
-                      className="inline-flex items-center rounded-lg border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground transition-all duration-150 hover:border-primary hover:text-primary"
+                      className="border-border bg-background text-foreground hover:border-primary hover:text-primary inline-flex items-center rounded-lg border px-3 py-1.5 text-xs font-medium transition-all duration-150"
                     >
                       {skill.name}
                     </span>

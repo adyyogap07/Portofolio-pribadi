@@ -2,43 +2,15 @@ import React from "react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Briefcase, GraduationCap } from "lucide-react";
+import type { SanityExperience } from "@/sanity/lib/data";
 
-interface TimelineEntry {
-  period: string;
-  role: string;
-  institution: string;
-  description: string;
-  type: "work" | "education";
-}
+export function Experience({
+  experiences,
+}: {
+  experiences?: SanityExperience[];
+}) {
+  if (!experiences?.length) return null;
 
-const EXPERIENCES: TimelineEntry[] = [
-  {
-    period: "2023 – Sekarang",
-    role: "IT Developer & Software Engineer",
-    institution: "Tech Solutions / Freelance",
-    description:
-      "Merancang, membangun, dan mengoptimalkan sistem web interaktif, integrasi API, serta otomasi alur kerja digital.",
-    type: "work",
-  },
-  {
-    period: "2021 – 2023",
-    role: "Fullstack Web Developer",
-    institution: "Digital Agency",
-    description:
-      "Mengembangkan aplikasi web kustom untuk berbagai klien, mengelola basis data SQL, dan memelihara infrastruktur server.",
-    type: "work",
-  },
-  {
-    period: "2017 – 2021",
-    role: "Teknik Informatika / Ilmu Komputer",
-    institution: "Universitas",
-    description:
-      "Mempelajari dasar-dasar ilmu komputer, algoritma, rekayasa perangkat lunak, dan jaringan komputer.",
-    type: "education",
-  },
-];
-
-export function Experience() {
   return (
     <section id="pengalaman" className="bg-surface/50 py-20 md:py-28">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
@@ -48,14 +20,17 @@ export function Experience() {
           description="Riwayat pengalaman profesional dan latar belakang akademis dalam bidang teknologi."
         />
 
-        <div className="relative pl-6 sm:pl-8 border-l-2 border-border/80 space-y-12">
-          {EXPERIENCES.map((item, idx) => {
-            const isWork = item.type === "work";
+        <div className="border-border/80 relative space-y-12 border-l-2 pl-6 sm:pl-8">
+          {experiences.map((item, idx) => {
+            const isWork = item.kind === "work";
+            const period = `${item.startDate.slice(0, 4)} – ${
+              item.endDate ? item.endDate.slice(0, 4) : "Sekarang"
+            }`;
             return (
-              <Reveal key={idx} delay={idx * 0.1}>
-                <div className="relative group">
+              <Reveal key={item._id} delay={idx * 0.1}>
+                <div className="group relative">
                   {/* Timeline point */}
-                  <span className="absolute -left-[31px] sm:-left-[39px] top-1 flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full border-4 border-background bg-primary text-white shadow-xs transition-transform duration-200 group-hover:scale-110">
+                  <span className="border-background bg-primary absolute top-1 -left-[31px] flex h-7 w-7 items-center justify-center rounded-full border-4 text-white shadow-xs transition-transform duration-200 group-hover:scale-110 sm:-left-[39px] sm:h-8 sm:w-8">
                     {isWork ? (
                       <Briefcase className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                     ) : (
@@ -63,19 +38,21 @@ export function Experience() {
                     )}
                   </span>
 
-                  <div className="rounded-2xl border border-border/80 bg-background p-6 shadow-xs transition duration-200 hover:border-primary/40 hover:shadow-md">
-                    <span className="inline-block rounded-md bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary">
-                      {item.period}
+                  <div className="border-border/80 bg-background hover:border-primary/40 rounded-2xl border p-6 shadow-xs transition duration-200 hover:shadow-md">
+                    <span className="bg-primary/10 text-primary inline-block rounded-md px-2.5 py-0.5 text-xs font-semibold">
+                      {period}
                     </span>
-                    <h3 className="mt-2 text-lg font-bold text-foreground">
-                      {item.role}
+                    <h3 className="text-foreground mt-2 text-lg font-bold">
+                      {item.title}
                     </h3>
-                    <p className="text-sm font-medium text-muted">
-                      {item.institution}
+                    <p className="text-muted text-sm font-medium">
+                      {item.organization}
                     </p>
-                    <p className="mt-3 text-sm text-muted leading-relaxed">
-                      {item.description}
-                    </p>
+                    {item.description && (
+                      <p className="text-muted mt-3 text-sm leading-relaxed">
+                        {item.description}
+                      </p>
+                    )}
                   </div>
                 </div>
               </Reveal>

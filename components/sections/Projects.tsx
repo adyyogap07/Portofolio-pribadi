@@ -5,6 +5,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { ExternalLink, ArrowUpRight } from "lucide-react";
 import { GithubIcon } from "@/components/ui/icons";
 import { Button } from "@/components/ui/Button";
+import Image from "next/image";
+import type { SanityProject } from "@/sanity/lib/data";
 
 interface ProjectItem {
   id: string;
@@ -14,42 +16,28 @@ interface ProjectItem {
   techStack: string[];
   demoUrl?: string;
   repoUrl?: string;
+  category?: string;
+  thumbnail?: {
+    url?: string | null;
+    alt?: string | null;
+  } | null;
 }
 
-const FEATURED_PROJECTS: ProjectItem[] = [
-  {
-    id: "1",
-    title: "Enterprise Inventory Management System",
-    summary:
-      "Aplikasi manajemen inventaris pergudangan real-time dengan reporting analitik dan kontrol hak akses multi-role.",
-    slug: "inventory-management",
-    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL"],
-    demoUrl: "https://demo.example.com",
-    repoUrl: "https://github.com",
-  },
-  {
-    id: "2",
-    title: "Healthcare Service Portal",
-    summary:
-      "Platform penjadwalan janji temu medis online dan rekam medis digital yang terintegrasi secara aman.",
-    slug: "healthcare-portal",
-    techStack: ["React", "Node.js", "REST API", "Docker"],
-    demoUrl: "https://demo.example.com",
-    repoUrl: "https://github.com",
-  },
-  {
-    id: "3",
-    title: "Modern E-Commerce Storefront",
-    summary:
-      "Platform belanja online dengan performa tinggi, filter produk cepat, keranjang belanja, dan integrasi payment gateway.",
-    slug: "ecommerce-storefront",
-    techStack: ["Next.js", "Tailwind CSS", "Sanity CMS", "Stripe"],
-    demoUrl: "https://demo.example.com",
-    repoUrl: "https://github.com",
-  },
-];
+export function Projects({ projects }: { projects?: SanityProject[] }) {
+  if (!projects?.length) return null;
 
-export function Projects() {
+  const projectItems: ProjectItem[] = projects.map((project) => ({
+    id: project._id,
+    title: project.title,
+    summary: project.summary,
+    slug: project.slug,
+    techStack: project.techStack || [],
+    demoUrl: project.demoUrl || undefined,
+    repoUrl: project.repoUrl || undefined,
+    category: project.category || undefined,
+    thumbnail: project.thumbnail,
+  }));
+
   return (
     <section id="proyek" className="py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -60,24 +48,36 @@ export function Projects() {
         />
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {FEATURED_PROJECTS.map((proj, idx) => (
+          {projectItems.map((proj, idx) => (
             <Reveal key={proj.id} delay={idx * 0.1}>
-              <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border/80 bg-surface/50 transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:bg-surface hover:shadow-lg">
+              <div className="group border-border/80 bg-surface/50 hover:border-primary/50 hover:bg-surface flex h-full flex-col overflow-hidden rounded-2xl border transition duration-300 hover:-translate-y-1 hover:shadow-lg">
                 {/* Project preview header/banner */}
-                <div className="relative h-48 w-full overflow-hidden bg-gradient-to-tr from-primary/20 via-surface to-accent/20 flex items-center justify-center p-6 text-center">
-                  <div className="space-y-1">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-primary">
-                      Studi Kasus
-                    </span>
-                    <p className="text-lg font-bold text-foreground line-clamp-2">
-                      {proj.title}
-                    </p>
-                  </div>
+                <div className="from-primary/20 via-surface to-accent/20 relative flex h-48 w-full items-center justify-center overflow-hidden bg-gradient-to-tr p-6 text-center">
+                  {proj.thumbnail?.url ? (
+                    <Image
+                      src={proj.thumbnail.url}
+                      alt={proj.thumbnail.alt || proj.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="space-y-1">
+                      {proj.category && (
+                        <span className="text-primary text-xs font-semibold tracking-wider uppercase">
+                          {proj.category}
+                        </span>
+                      )}
+                      <p className="text-foreground line-clamp-2 text-lg font-bold">
+                        {proj.title}
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 {/* Content */}
                 <div className="flex flex-1 flex-col p-6">
-                  <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                  <h3 className="text-foreground group-hover:text-primary text-lg font-bold transition-colors">
                     <Link
                       href={`/projects/${proj.slug}`}
                       className="inline-flex items-center gap-1"
@@ -86,31 +86,33 @@ export function Projects() {
                       <ArrowUpRight className="h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100" />
                     </Link>
                   </h3>
-                  <p className="mt-2 flex-1 text-sm text-muted leading-relaxed">
+                  <p className="text-muted mt-2 flex-1 text-sm leading-relaxed">
                     {proj.summary}
                   </p>
 
                   {/* Tags */}
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {proj.techStack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-md bg-background px-2 py-1 text-xs font-medium text-muted border border-border/60"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+                  {proj.techStack.length > 0 && (
+                    <div className="mt-4 flex flex-wrap gap-1.5">
+                      {proj.techStack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="bg-background text-muted border-border/60 rounded-md border px-2 py-1 text-xs font-medium"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  )}
 
                   {/* Action links */}
-                  <div className="mt-6 flex items-center justify-between border-t border-border/60 pt-4">
+                  <div className="border-border/60 mt-6 flex items-center justify-between border-t pt-4">
                     <div className="flex items-center gap-3">
                       {proj.demoUrl && (
                         <a
                           href={proj.demoUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+                          className="text-primary inline-flex items-center gap-1 text-xs font-medium hover:underline"
                         >
                           <ExternalLink className="h-3.5 w-3.5" />
                           <span>Live Demo</span>
@@ -121,7 +123,7 @@ export function Projects() {
                           href={proj.repoUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs font-medium text-muted hover:text-foreground"
+                          className="text-muted hover:text-foreground inline-flex items-center gap-1 text-xs font-medium"
                         >
                           <GithubIcon className="h-3.5 w-3.5" />
                           <span>Kode</span>
@@ -131,7 +133,7 @@ export function Projects() {
 
                     <Link
                       href={`/projects/${proj.slug}`}
-                      className="text-xs font-medium text-muted hover:text-foreground"
+                      className="text-muted hover:text-foreground text-xs font-medium"
                     >
                       Detail &rarr;
                     </Link>

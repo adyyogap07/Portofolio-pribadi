@@ -7,12 +7,20 @@ import { contactFormSchema, type ContactFormData } from "@/lib/validations";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
-import { Mail, MapPin, Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import {
+  Mail,
+  MapPin,
+  Send,
+  CheckCircle2,
+  AlertCircle,
+  Loader2,
+} from "lucide-react";
+import type { SanityProfile } from "@/sanity/lib/data";
 
-export function Contact() {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
-    "idle"
-  );
+export function Contact({ profile }: { profile?: SanityProfile | null }) {
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
   const {
@@ -30,6 +38,8 @@ export function Contact() {
       honeypot: "",
     },
   });
+
+  if (!profile) return null;
 
   const onSubmit = async (data: ContactFormData) => {
     setStatus("loading");
@@ -70,46 +80,50 @@ export function Contact() {
 
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
           {/* Contact Details */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="space-y-6 lg:col-span-5">
             <Reveal>
-              <h3 className="text-xl font-bold text-foreground">
+              <h3 className="text-foreground text-xl font-bold">
                 Informasi Kontak
               </h3>
-              <p className="mt-2 text-sm text-muted leading-relaxed">
-                Saya selalu terbuka untuk mendiskusikan peluang baru, proyek inovatif,
-                ataupun sekadar bertukar pikiran seputar teknologi.
+              <p className="text-muted mt-2 text-sm leading-relaxed">
+                Saya selalu terbuka untuk mendiskusikan peluang baru, proyek
+                inovatif, ataupun sekadar bertukar pikiran seputar teknologi.
               </p>
             </Reveal>
 
             <Reveal delay={0.1}>
               <div className="space-y-4 pt-2">
-                <div className="flex items-start gap-3 rounded-xl border border-border/70 bg-background p-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                    <Mail className="h-5 w-5" />
+                {profile.email && (
+                  <div className="border-border/70 bg-background flex items-start gap-3 rounded-xl border p-4">
+                    <div className="bg-primary/10 text-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
+                      <Mail className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <span className="text-muted text-xs font-semibold tracking-wider uppercase">
+                        Email
+                      </span>
+                      <p className="text-foreground text-sm font-medium">
+                        {profile.email}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <span className="text-xs font-semibold uppercase tracking-wider text-muted">
-                      Email
-                    </span>
-                    <p className="text-sm font-medium text-foreground">
-                      contact@adyyoga.dev
-                    </p>
-                  </div>
-                </div>
+                )}
 
-                <div className="flex items-start gap-3 rounded-xl border border-border/70 bg-background p-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                    <MapPin className="h-5 w-5" />
+                {profile.location && (
+                  <div className="border-border/70 bg-background flex items-start gap-3 rounded-xl border p-4">
+                    <div className="bg-primary/10 text-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
+                      <MapPin className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <span className="text-muted text-xs font-semibold tracking-wider uppercase">
+                        Lokasi
+                      </span>
+                      <p className="text-foreground text-sm font-medium">
+                        {profile.location}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <span className="text-xs font-semibold uppercase tracking-wider text-muted">
-                      Lokasi
-                    </span>
-                    <p className="text-sm font-medium text-foreground">
-                      Indonesia (Remote / Hybrid)
-                    </p>
-                  </div>
-                </div>
+                )}
               </div>
             </Reveal>
           </div>
@@ -117,18 +131,19 @@ export function Contact() {
           {/* Contact Form */}
           <div className="lg:col-span-7">
             <Reveal delay={0.2}>
-              <div className="rounded-2xl border border-border/80 bg-background p-6 sm:p-8 shadow-xs">
+              <div className="border-border/80 bg-background rounded-2xl border p-6 shadow-xs sm:p-8">
                 {status === "success" && (
-                  <div className="mb-6 flex items-center gap-3 rounded-xl bg-success/10 border border-success/30 p-4 text-success">
+                  <div className="bg-success/10 border-success/30 text-success mb-6 flex items-center gap-3 rounded-xl border p-4">
                     <CheckCircle2 className="h-5 w-5 shrink-0" />
                     <p className="text-sm font-medium">
-                      Terima kasih! Pesan Anda telah berhasil terkirim. Saya akan segera merespons email Anda.
+                      Terima kasih! Pesan Anda telah berhasil terkirim. Saya
+                      akan segera merespons email Anda.
                     </p>
                   </div>
                 )}
 
                 {status === "error" && (
-                  <div className="mb-6 flex items-center gap-3 rounded-xl bg-danger/10 border border-danger/30 p-4 text-danger">
+                  <div className="bg-danger/10 border-danger/30 text-danger mb-6 flex items-center gap-3 rounded-xl border p-4">
                     <AlertCircle className="h-5 w-5 shrink-0" />
                     <p className="text-sm font-medium">{errorMessage}</p>
                   </div>
@@ -149,7 +164,7 @@ export function Contact() {
                     <div>
                       <label
                         htmlFor="name"
-                        className="block text-xs font-semibold uppercase tracking-wider text-muted mb-1.5"
+                        className="text-muted mb-1.5 block text-xs font-semibold tracking-wider uppercase"
                       >
                         Nama Lengkap
                       </label>
@@ -158,10 +173,10 @@ export function Contact() {
                         type="text"
                         placeholder="Nama Anda"
                         {...register("name")}
-                        className="w-full rounded-xl border border-border bg-surface/50 px-4 py-2.5 text-sm text-foreground placeholder:text-muted/60 focus:border-primary focus:bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
+                        className="border-border bg-surface/50 text-foreground placeholder:text-muted/60 focus:border-primary focus:bg-background focus:ring-primary/20 w-full rounded-xl border px-4 py-2.5 text-sm transition-colors focus:ring-2 focus:outline-none"
                       />
                       {errors.name && (
-                        <p className="mt-1 text-xs text-danger">
+                        <p className="text-danger mt-1 text-xs">
                           {errors.name.message}
                         </p>
                       )}
@@ -170,7 +185,7 @@ export function Contact() {
                     <div>
                       <label
                         htmlFor="email"
-                        className="block text-xs font-semibold uppercase tracking-wider text-muted mb-1.5"
+                        className="text-muted mb-1.5 block text-xs font-semibold tracking-wider uppercase"
                       >
                         Email
                       </label>
@@ -179,10 +194,10 @@ export function Contact() {
                         type="email"
                         placeholder="nama@email.com"
                         {...register("email")}
-                        className="w-full rounded-xl border border-border bg-surface/50 px-4 py-2.5 text-sm text-foreground placeholder:text-muted/60 focus:border-primary focus:bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
+                        className="border-border bg-surface/50 text-foreground placeholder:text-muted/60 focus:border-primary focus:bg-background focus:ring-primary/20 w-full rounded-xl border px-4 py-2.5 text-sm transition-colors focus:ring-2 focus:outline-none"
                       />
                       {errors.email && (
-                        <p className="mt-1 text-xs text-danger">
+                        <p className="text-danger mt-1 text-xs">
                           {errors.email.message}
                         </p>
                       )}
@@ -192,7 +207,7 @@ export function Contact() {
                   <div>
                     <label
                       htmlFor="subject"
-                      className="block text-xs font-semibold uppercase tracking-wider text-muted mb-1.5"
+                      className="text-muted mb-1.5 block text-xs font-semibold tracking-wider uppercase"
                     >
                       Subjek
                     </label>
@@ -201,10 +216,10 @@ export function Contact() {
                       type="text"
                       placeholder="Judul atau topik pesan"
                       {...register("subject")}
-                      className="w-full rounded-xl border border-border bg-surface/50 px-4 py-2.5 text-sm text-foreground placeholder:text-muted/60 focus:border-primary focus:bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
+                      className="border-border bg-surface/50 text-foreground placeholder:text-muted/60 focus:border-primary focus:bg-background focus:ring-primary/20 w-full rounded-xl border px-4 py-2.5 text-sm transition-colors focus:ring-2 focus:outline-none"
                     />
                     {errors.subject && (
-                      <p className="mt-1 text-xs text-danger">
+                      <p className="text-danger mt-1 text-xs">
                         {errors.subject.message}
                       </p>
                     )}
@@ -213,7 +228,7 @@ export function Contact() {
                   <div>
                     <label
                       htmlFor="message"
-                      className="block text-xs font-semibold uppercase tracking-wider text-muted mb-1.5"
+                      className="text-muted mb-1.5 block text-xs font-semibold tracking-wider uppercase"
                     >
                       Pesan
                     </label>
@@ -222,10 +237,10 @@ export function Contact() {
                       rows={5}
                       placeholder="Tuliskan pesan Anda di sini..."
                       {...register("message")}
-                      className="w-full rounded-xl border border-border bg-surface/50 px-4 py-2.5 text-sm text-foreground placeholder:text-muted/60 focus:border-primary focus:bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors resize-y"
+                      className="border-border bg-surface/50 text-foreground placeholder:text-muted/60 focus:border-primary focus:bg-background focus:ring-primary/20 w-full resize-y rounded-xl border px-4 py-2.5 text-sm transition-colors focus:ring-2 focus:outline-none"
                     />
                     {errors.message && (
-                      <p className="mt-1 text-xs text-danger">
+                      <p className="text-danger mt-1 text-xs">
                         {errors.message.message}
                       </p>
                     )}
