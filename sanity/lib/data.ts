@@ -8,7 +8,9 @@ import {
   projectSlugsQuery,
   skillsQuery,
 } from "./queries";
+import { sanityCacheTags } from "./cache-tags";
 import { projectId } from "../env";
+import { cacheTag } from "next/cache";
 
 export interface SanityImage {
   url?: string | null;
@@ -79,6 +81,7 @@ export async function getFeaturedProjects() {
 
 async function getCachedFeaturedProjects() {
   "use cache";
+  cacheTag(sanityCacheTags.projects);
   return client.fetch<SanityProject[]>(featuredProjectsQuery);
 }
 
@@ -89,6 +92,7 @@ export async function getAllProjects() {
 
 async function getCachedAllProjects() {
   "use cache";
+  cacheTag(sanityCacheTags.projects);
   return client.fetch<SanityProject[]>(allProjectsQuery);
 }
 
@@ -99,6 +103,7 @@ export async function getProjectBySlug(slug: string) {
 
 async function getCachedProjectBySlug(slug: string) {
   "use cache";
+  cacheTag(sanityCacheTags.projects);
   return client.fetch<SanityProject | null>(projectBySlugQuery, { slug });
 }
 
@@ -109,6 +114,7 @@ export async function getProjectSlugs() {
 
 async function getCachedProjectSlugs() {
   "use cache";
+  cacheTag(sanityCacheTags.projects);
   return client.fetch<string[]>(projectSlugsQuery);
 }
 

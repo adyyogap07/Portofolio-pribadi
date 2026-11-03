@@ -35,8 +35,20 @@ and project detail pages use their Sanity slug. Only projects marked as featured
 in the homepage project section.
 
 The frontend displays published Sanity content only. Empty profile fields and content
-collections stay empty in the frontend; there is no sample-content fallback. Sanity
-content is cached for up to 15 minutes.
+collections stay empty in the frontend; there is no sample-content fallback. Project
+content is cached and invalidated by a Sanity webhook when a project is published,
+updated, or unpublished.
+
+To enable automatic project updates:
+
+1. Set `SANITY_REVALIDATE_SECRET` in the Vercel Production environment variables. Use
+   the same secret in the Sanity webhook configuration.
+2. In Sanity Manage → API → Webhooks, add an enabled webhook with URL
+   `https://adyyoga.vercel.app/api/revalidate`, method `POST`, and the matching secret.
+3. Trigger on create, update, and delete; set the GROQ filter to `_type == "project"`
+   and the projection to `{_type}`. Leave draft and version events disabled.
+4. Redeploy after setting the Vercel environment variable, then publish the project
+   document in Studio. Saving a draft alone does not publish it to the website.
 
 ## Learn More
 
